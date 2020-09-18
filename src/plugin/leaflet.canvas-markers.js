@@ -369,6 +369,10 @@ function layerFactory(L) {
             this._canvas.width = size.x;
             this._canvas.height = size.y;
 
+            // add opacity
+            this._canvas.style.opacity = 0.9;
+            this._canvas.style.zIndex = 500;
+
             this._context = this._canvas.getContext('2d');
 
             var animated = this._map.options.zoomAnimation && L.Browser.any3d;
