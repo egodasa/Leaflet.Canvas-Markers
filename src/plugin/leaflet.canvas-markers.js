@@ -60,6 +60,9 @@ function layerFactory(L) {
             var isDisplaying = self._map.getBounds().contains(latlng);
             var dat = self._addMarker(marker,latlng,isDisplaying);
 
+            console.log("data yang dimasukan ke rbush ");
+            console.log(dat);
+
             //Only add to Point Lookup if we are on map
             if(isDisplaying ===true) self._markers.insert(dat[0]);
 
@@ -195,13 +198,14 @@ function layerFactory(L) {
             var pointPos = self._map.latLngToContainerPoint(latlng);
             var iconSize = marker.options.icon.options.iconSize;
 
-            var adj_x = iconSize[0]/2;
-            var adj_y = iconSize[1]/2;
+            // TITIK MASALAH
+            var adj_x = iconSize[0];
+            var adj_y = iconSize[1];
             var ret = [({
-                minX: (pointPos.x - adj_x),
+                minX: (pointPos.x - adj_x/2),
                 minY: (pointPos.y - adj_y),
-                maxX: (pointPos.x + adj_x),
-                maxY: (pointPos.y + adj_y),
+                maxX: (pointPos.x + adj_x/2),
+                maxY: (pointPos.y + adj_y/8),
                 data: marker
             }),({
                 minX: latlng.lng,
@@ -210,6 +214,7 @@ function layerFactory(L) {
                 maxY: latlng.lat,
                 data: marker
             })];
+
 
             self._latlngMarkers.dirty++;
             self._latlngMarkers.total++;
@@ -339,14 +344,14 @@ function layerFactory(L) {
                 var pointPos = self._map.latLngToContainerPoint(e.data.getLatLng());
 
                 var iconSize = e.data.options.icon.options.iconSize;
-                var adj_x = iconSize[0]/2;
-                var adj_y = iconSize[1]/2;
+                var adj_x = iconSize[0];
+                var adj_y = iconSize[1];
 
                 var newCoords = {
-                    minX: (pointPos.x - adj_x),
+                    minX: (pointPos.x - adj_x/2),
                     minY: (pointPos.y - adj_y),
-                    maxX: (pointPos.x + adj_x),
-                    maxY: (pointPos.y + adj_y),
+                    maxX: (pointPos.x + adj_x/2),
+                    maxY: (pointPos.y + adj_y/8),
                     data: e.data
                 }
 
