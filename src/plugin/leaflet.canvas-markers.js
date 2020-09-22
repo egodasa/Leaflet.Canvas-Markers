@@ -60,9 +60,6 @@ function layerFactory(L) {
             var isDisplaying = self._map.getBounds().contains(latlng);
             var dat = self._addMarker(marker,latlng,isDisplaying);
 
-            console.log("data yang dimasukan ke rbush ");
-            console.log(dat);
-
             //Only add to Point Lookup if we are on map
             if(isDisplaying ===true) self._markers.insert(dat[0]);
 
@@ -376,6 +373,7 @@ function layerFactory(L) {
 
             // add opacity
             this._canvas.style.zIndex = 500;
+            this._canvas.style.pointerEvents = 'none';
 
             this._context = this._canvas.getContext('2d');
 
